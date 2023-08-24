@@ -1,0 +1,73 @@
+Feature :
+- thanh toán
+    + strategy để cos thể chọn phương thức thanh toán ( Pay pal , trực tieeos khi mua hàng)
+    + state để cập nhật tình trạng shipping và kết hợp với observer để thông báo cho  người dùng
+    đã order thông qua email sau mỗi lần thay đổi
+
+
+- filter ==> thêm apply price range
+- Chỉnh lại order
+- giỏ hàng order
+- add size to the cart
+
+-message cho các hành động
+
+
+- Thêm Factory để xác định khách hàng
+    + khách hàng thân thiết
+    + khách hàng mới
+
+- sửa lại Cart:
+    +Khi user đăng nhập thì lưu thông tin giỏ hàng vào database còn không thì sử dụng cookie (Checked)
+    +Khi user thêm vào cart thì thêm cả size và check size , quantity trong products
+- hình ảnh của sản phaamr (optional)
+
+
+
+fix update product admin
+
+   - Paypal
+   - Thanh toán ==> gửi hóa đơn qua email(II) (1/2)
+   - Admin page ==> phân quyền
+   - In file tất cả order qua excel gửi qua email
+   - sửa lại một số lỗi logic như :
+        + apply filter cho nhiều filter chung ==>Checked
+        + tiền tiêu của user ==
+        + tự động generate mk cho google user ==> chưa
+   - Chuyển lại bằng JSTL toàn bộ
+   - Apply Design Pattern :
+        +Singleton ==>checked
+        +Factory method ==> checked
+        + Strategy design ==>checked
+        +Iterator ==>checked ( còn admin )
+        +State==>
+        +Observer==>
+
+Của ngta :
+a. Đăng nhập và phân quyền
+Mỗi user có 1 quyền nhất định. Tài khoản quản trị viên sẽ có tất cả các quyền. Tài khoản của người bán thì không thể thực hiện xóa, sửa, thêm tài khoản,được quyền thêm sản phẩm. Tài khoản khách hàng thì chỉ xem được các sản phẩm và thông tin cá nhân của mình.
+b. Đăng ký tài khoản
+Mặc định đăng ký tài khoản thành công thì sẽ trao cho tài khoản đăng ký là khách hàng.
+c. Quên mật khẩu
+Khách hàng có thể lấy lại mật khẩu của mình qua email
+Quản trị viên có thể cập nhật trong tất cả thông tin của người bán, khách hàng. Khách hàng có thể cập nhật thông tin của chính mình
+d. Quản lý sản phẩm: Người bán
+Thêm: Ta nhập vào các thông tin cần thêm về sản phẩm để có thể mới một đối tượng tương ứng.
+Sửa: Ta chọn vào đối tượng và thay đổi các thông tin theo ý muốn và bấm nút edit.
+Xóa: Ta chọn vào đối tượng và bấm nút xóa.
+e. Quản lý tài khoản: Quản trị viên có thể xem thông tin của tất cả tài khoản trong hệ thống
+f. Tìm kiếm sản phẩm theo giá Min, Max, Under 100, 100-200, Above 200
+g. Tìm khiếm sản phẩm theo màu
+h. Tìm kiếm sản phẩm theo tên
+i. Chọn các sản phẩm và thanh toán
+Cho phép chọn các sản phẩm và bỏ vào giỏ hàng và sau đó có thể thanh toán. Khi thanh toán hóa đơn sẽ được lưu lại và khách hàng sẽ nhận được một email xác nhận đặt hàng
+j. Quản lý giỏ hàng
+
+k. Quản lý nhà cung cấp
+l. Thống kê top 5 khách hàng mua nhiều nhất
+m. Thống kê top 5 nhân viên bán hàng xuất sắc nhất
+n. Thống kê top 10 sản phẩm bán chạy nhất
+o. Xuất tất cả hóa đơn, lọc hóa đơn theo ngày, in hóa đơn ra file Excel
+p. Thống kê doanh thu theo tháng
+q. Thống kê doanh thu theo thứ trong tuần
+r. Xem các sản phẩm cửa cửa hàng
