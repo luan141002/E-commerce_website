@@ -4,23 +4,70 @@ import jakarta.persistence.*;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
+import static jakarta.persistence.FetchType.EAGER;
+
 @Entity
-@Table(name = "Product")
+@Table(name = "products")
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(nullable = true,length = 45)
+
     private String proName;
-    @Column(nullable = true,length = 45)
+
     private String proCategory;
-    @Column(nullable = true,length = 45)
+
     private Double proPrice;
-    @Column(nullable = true,length = 45)
+
     private String proImage;
+
+    private int proRank;
+
+    public int getProStatus() {
+        return proStatus;
+    }
+
+    public void setProStatus(int proStatus) {
+        this.proStatus = proStatus;
+    }
+
+    private String proDes;
+    private String proBrand;
+    private int proStatus;
+    private int proquan;
+
+    public String getProBrand() {
+        return proBrand;
+    }
+
+    public void setProBrand(String proBrand) {
+        this.proBrand = proBrand;
+    }
+
+    public String getProCollection() {
+        return proCollection;
+    }
+
+    public void setProCollection(String proCollection) {
+        this.proCollection = proCollection;
+    }
+
+    private String proCollection;
+
+/*    public List<Size> getProSize() {
+        return proSize;
+    }
+
+    public void setProSize(List<Size> proSize) {
+        this.proSize = proSize;
+    }
+
+    @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
+    private List<Size> proSize;*/
 
     public int getProRank() {
         return proRank;
@@ -29,9 +76,6 @@ public class Product implements Serializable {
     public void setProRank(int proRank) {
         this.proRank = proRank;
     }
-
-    @Column(nullable = true,length = 45)
-    private int proRank;
 
 
 
@@ -92,10 +136,6 @@ public class Product implements Serializable {
         this.proDes = proDes;
     }
 
-    @Column(nullable = true,length = 45)
-    private String proDes;
-
-
 
     public Integer getId() {
         return id;
@@ -113,5 +153,11 @@ public class Product implements Serializable {
         return getId() != null && Objects.equals(getId(), product.getId());
     }
 
+    public int getProquan() {
+        return proquan;
+    }
 
+    public void setProquan(int proquan) {
+        this.proquan = proquan;
+    }
 }

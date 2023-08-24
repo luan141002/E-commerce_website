@@ -3,46 +3,91 @@ package com.example.demo3.business;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
+
+
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userID;
-    private  String userName;
-    private String userAddress;
-    private int userPhone;
-    private String userCredit;
-    private String userShipInfo;
-
+    private  String Email;
+    private String firstName;
+    private String lastName;
     @Column(length = 15, nullable = false)
     private int type;
+    private String userAddress;
+    private String userCredit;
+    private int userPhone;
 
-    public int getType() {
-        return type;
+    public int getUserStatus() {
+        return userStatus;
     }
 
-    public User(Integer id, String username, String password, Integer userID, String userName, String userAddress, int userPhone, String userCredit, String userShipInfo, int type) {
-        this.userID = userID;
-        this.userName = userName;
-        this.userAddress = userAddress;
-        this.userPhone = userPhone;
-        this.userCredit = userCredit;
-        this.userShipInfo = userShipInfo;
-        this.type = type;
+    public void setUserStatus(int userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    private double vipBudget;
+    private int userStatus;
+
+    public double getVipBudget() {
+        return vipBudget;
+    }
+
+    public void setVipBudget(double vipBudget) {
+        this.vipBudget = vipBudget;
+    }
+
+    @OneToOne
+    private Account account;
+/*    @OneToMany(fetch = EAGER, cascade = CascadeType.ALL)
+    private List<ShippingInfo> userShipInfo;*/
+
+    public User() {
+
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+
+    public Integer getUserID() {
+        return userID;
     }
 
     public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 
     public String getUserAddress() {
@@ -69,12 +114,16 @@ public class User implements Serializable {
         this.userCredit = userCredit;
     }
 
-    public String getUserShipInfo() {
+    /*public List<ShippingInfo> getUserShipInfo() {
         return userShipInfo;
     }
 
-    public void setUserShipInfo(String userShipInfo) {
+    public void setUserShipInfo(List<ShippingInfo> userShipInfo) {
         this.userShipInfo = userShipInfo;
+    }
+*/
+    public int getType() {
+        return type;
     }
 
     public void setType(int type) {
@@ -83,23 +132,14 @@ public class User implements Serializable {
 
 
 
-    public User() {
-
+    public User(String firstName, String lastName, String email, String userAddress, int userPhone, List<ShippingInfo> userShipInfo, Account account, int type) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        Email = email;
+        this.userAddress = userAddress;
+        this.userPhone = userPhone;
+        /*this.userShipInfo = userShipInfo;*/
+        this.account = account;
+        this.type = type;
     }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-
-
-    //-------------------------------------------------------
-
-
-
-
 }

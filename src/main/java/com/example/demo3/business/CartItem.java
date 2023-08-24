@@ -10,16 +10,13 @@ import com.example.demo3.business.Product;
 import static jakarta.persistence.FetchType.EAGER;
 
 @Entity
-@Table(name = "cartitem")
+@Table(name = "cartitems")
 public class CartItem implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CartItemId", nullable = false)
     private  Integer CartItemId;
-
-    @ManyToOne
-    private User user;
 
     @OneToOne
     private Product Product;
@@ -33,14 +30,20 @@ public class CartItem implements Serializable {
     }
 
     @Column(nullable = true,length = 10)
-    private Integer quantity;
+    private Integer quantity = 1;
     @Column(nullable = true,length = 10)
     private double subtotal;
+    private String size;
 
     public CartItem() {
     }
     public CartItem(Product Product ,Integer cartItemId, Integer quantity, double subtotal) {
         this.CartItemId = cartItemId;
+        this.Product = Product;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+    }
+    public CartItem(Product Product , Integer quantity, double subtotal) {
         this.Product = Product;
         this.quantity = quantity;
         this.subtotal = subtotal;
@@ -72,5 +75,13 @@ public class CartItem implements Serializable {
 
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }

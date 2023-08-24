@@ -3,8 +3,17 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Cart1.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Checkout.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Product.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Shopping.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/adminSection/Login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/adminSection" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/adminSection/adminPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/adminSection" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/adminSection/tableSection.jsp" value="file://$PROJECT_DIR$/src/main/webapp/adminSection" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin_dashboard/adminPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin_dashboard" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin_dashboard/tableSection.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin_dashboard" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/hihi.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/include/navbar.jsp" value="file://$PROJECT_DIR$/src/main/webapp/include" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>

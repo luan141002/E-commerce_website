@@ -13,7 +13,7 @@
 
 <footer class="section-p1">
     <div class="col">
-        <img class="logo" src="image/img/logo.png" alt="">
+        <img class="logo" src="/image/img/logo.png" alt="">
         <h4>Contact</h4>
         <p><strong>Address : </strong>No.1 ,vo van ngan street, Thu duc city</p>
         <p><strong>Phone : </strong>0931254427</p>
@@ -49,11 +49,11 @@
         <h4>Install App</h4>
         <p>From App Store or Google Play</p>
         <div class="row">
-            <img src="image/img/pay/app.jpg" alt="">
-            <img src="image/img/pay/play.jpg" alt="">
+            <img src="/image/img/pay/app.jpg" alt="">
+            <img src="/image/img/pay/play.jpg" alt="">
         </div>
         <p>Secured Payment Gateways</p>
-        <img src="image/img/pay/pay.png" alt="">
+        <img src="/image/img/pay/pay.png" alt="">
     </div>
     <div class="copyright">
         <p>© 2023, RyanPhan etc - E-commerce Website Project </p>

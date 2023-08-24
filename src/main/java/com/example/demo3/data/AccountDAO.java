@@ -8,7 +8,7 @@ import jakarta.persistence.TypedQuery;
 
 public class AccountDAO {
     public static void insert(Account account) {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityManager em = DBUtil.getEmFactory().createEntityManager(); // apply singleton
         EntityTransaction trans = em.getTransaction();
         trans.begin();
         try {
@@ -23,7 +23,6 @@ public class AccountDAO {
     }
 
 
-
     public static Boolean findAccount(Account account) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String qString = "SELECT a FROM Account a "
@@ -34,8 +33,8 @@ public class AccountDAO {
         Account result = null;
         try {
             result = q.getSingleResult();
-            System.out.println("Username: " + result.getUsername());
-            System.out.println("Password: " + result.getPassword());
+            /*System.out.println("Username: " + result.getUsername());
+            System.out.println("Password: " + result.getPassword());*/
         } catch (NoResultException ex) {
             return false;
         } finally {
@@ -44,6 +43,22 @@ public class AccountDAO {
 
         return result != null;
     }
+
+    public static void update(Account account) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+            em.merge(account);
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+
     public static Account findAccountByUsername(String username) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String qString = "SELECT a FROM Account a "
@@ -63,4 +78,5 @@ public class AccountDAO {
 
         return result;
     }
+
 }

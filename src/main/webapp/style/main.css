@@ -12,6 +12,75 @@ NOTE :
 -
 
 */
+.icon-control {
+    margin-top: 5px;
+    float: right;
+    font-size: 80%;
+}
+
+.list-menu {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+.dropdown .dropdown-menu {
+    font-size: 0.85rem;
+}
+
+.dropdown .dropdown-menu .dropdown-header {
+    font-weight: 800;
+    font-size: 0.65rem;
+    color: #b7b9cc;
+}
+.dropdown-toggle::after{width:1rem;text-align:center;float:right;vertical-align:0;border:0;font-weight:900;content:'\f105';font-family:'Font Awesome 5 Free'}
+.list-menu a {
+    color: #343a40;
+}
+
+.btn-light {
+    background-color: #fff;
+    border-color: #e4e4e4;
+}
+
+.list-menu {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+.list-menu a {
+    color: #343a40;
+}
+
+.card-product-grid .info-wrap {
+    overflow: hidden;
+    padding: 18px 20px;
+}
+
+[class*='card-product'] a.title {
+    color: #212529;
+    display: block;
+}
+
+.card-product-grid:hover .btn-overlay {
+    opacity: 1;
+}
+.card-product-grid .btn-overlay {
+    -webkit-transition: .5s;
+    transition: .5s;
+    opacity: 0;
+    left: 0;
+    bottom: 0;
+    color: #fff;
+    width: 100%;
+    padding: 5px 0;
+    text-align: center;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+}
+.img-wrap {
+    overflow: hidden;
+    position: relative;
+}
 
 html {
     scroll-behavior: smooth;
@@ -118,7 +187,19 @@ body {
     padding: 0 10px;
     position: relative;
 }
+#navbar div{
+    list-style: none;
+    padding: 0 10px;
+    position: relative;
+}
 #navbar li a{
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color:#1a1a1a;
+    transition:0.3s ease ;/*for changing smoothly when hover to this text*/
+}
+.filter-content{
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
@@ -605,4 +686,51 @@ footer .copyright{
 }
 #prodetails .single-pro-details span {
     line-height: 25px;
+}
+
+label.box {
+    width: 100%;
+    font-size: 12px;
+    background: #ddd;
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+#one:checked~label.first,
+#two:checked~label.second,
+#three:checked~label.third {
+    border-color: #7700ff;
+}
+
+#one:checked~label.first .circle,
+#two:checked~label.second .circle,
+#three:checked~label.third .circle {
+    border-color: #7a34ca;
+    background-color: #fff;
+}
+
+label.box .course {
+    width: 100%;
+}
+
+label.box .circle {
+    height: 12px;
+    width: 12px;
+    background: #ccc;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 4px solid transparent;
+    display: inline-block;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.box-2 {
+    max-width: 450px;
+    padding: 10px 40px;
 }

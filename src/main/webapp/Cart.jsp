@@ -2,6 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.example.demo3.business.*" %>
+<%@ page import="com.example.demo3.data.ProductDAO" %>
+<%@ page import="com.example.demo3.data.CartDAO" %>
+<%@ page import="static com.example.demo3.data.CartDAO.getTotalCurrencyFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     //Authentication access - session
@@ -9,7 +12,14 @@
     if (auth != null) {
         request.setAttribute("auth", auth);// set for using in each page for navbar check and showing button
     }
-
+    Cart cart_list = (Cart) session.getAttribute("cart-list");
+    ShippingInfo ship = new ShippingInfo();
+    String total = "0" ;
+    int index = 0;
+    if (cart_list != null) {
+        index =CartDAO.getCount(cart_list.getListCart());
+        total = CartDAO.getTotalCurrencyFormat(cart_list.getListCart());
+    }
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,9 +27,6 @@
     <%@ include file="include/head.jsp" %>
 
     <link rel="stylesheet" href="style/carrito.css">
-
-
-
     <script src="style/carito.js" defer></script>
 
 </head>
@@ -33,106 +40,73 @@
         </div>
         <div class="col-7">
             <div class="row text-right">
-                <div class="col-4">
+                <div class="col-3">
                     <h6 class="mt-2">Format</h6>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <h6 class="mt-2">Quantity</h6>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <h6 class="mt-2">Price</h6>
+                </div>
+                <div class="col-3">
+                    <h6 class="mt-2">Cancel</h6>
                 </div>
             </div>
         </div>
     </div>
-
+    <%
+        if (cart_list!=null) {
+            for (CartItem item : cart_list.getListCart()) {
+    %>
     <div class="row d-flex justify-content-center border-top">
         <div class="col-5">
             <th scope="row">
                 <div class="d-flex align-items-center">
-                    <img src="https://i.imgur.com/2DsA49b.webp" class="img-fluid rounded-3"
+                    <img src="image/img/products/<%=item.getProduct().getProImage()%>" class="img-fluid rounded-3"
                          style="width: 120px;" alt="Book">
                     <div class="flex-column ms-4">
-                        <h4 class="mb-2">Thinking, Fast and Slow</h4>
-                        <p class="mb-0">Daniel Kahneman</p>
+                        <h4 class="mb-2"><%=item.getProduct().getProName()%></h4>
+                        <p class="mb-0"><%=item.getProduct().getProDes()%></p>
                     </div>
                 </div>
             </th>
         </div>
         <div class="my-auto col-7">
             <div class="row text-right">
-                <div class="col-4">
-                    <p class="mob-text">Digital</p>
+                <div class="col-3">
+                    <p class="mob-text"><%=item.getProduct().getProCategory()%></p>
                 </div>
-                <div class="col-4">
-                    <div class="row d-flex justify-content-end px-3">
-
-                        <div class="d-flex flex-row">
-                            <button class="btn btn-link px-2"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                <i class="fas fa-minus"></i>
-                            </button>
-
-                            <input id="form1" min="0" name="quantity" value="1" type="number"
-                                   class="form-control form-control-sm" style="width: 50px;" />
-
-                            <button class="btn btn-link px-2"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
+                <div class="col-3 ">
+                    <div class="row d-flex justify-content-end ">
+                            <form action="/Cart/updateItem?productCode=<%=item.getProduct().getId()%>" method="POST"class="d-flex flex-row">
+                                <button class="btn btn-link px-2"
+                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" min="0" name="quantity" class="form-control form-control-sm "
+                                       style=width:50px; value="<%=item.getQuantity()%>" id="quantity" />
+                                <button type="submit" value="Update" class="btn btn-outline-dark mr-2"><i class="fa fa-refresh"></i></button>
+                                <button class="btn btn-link px-2"
+                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </form>
                     </div>
                 </div>
-                <div class="col-4">
-                    <h6 class="mob-text">$9.99</h6>
+                <div class="col-3">
+                    <h6 class="mob-text"><%=item.getProduct().getProPrice()*item.getQuantity()%></h6>
                 </div>
+                <div class="col-3">
+                    <a href="Cart/removeItem?productCode=<%=item.getProduct().getId()%>" class="btn btn-sm btn-danger">Remove</a>
+                </div>
+
             </div>
         </div>
     </div>
-
-    <div class="row d-flex justify-content-center border-top">
-        <div class="col-5">
-            <th scope="row" class="border-bottom-0">
-                <div class="d-flex align-items-center">
-                    <img src="https://i.imgur.com/Oj1iQUX.webp" class="img-fluid rounded-3"
-                         style="width: 120px;" alt="Book">
-                    <div class="flex-column ms-4">
-                        <h4 class="mb-2">Homo Deus: A Brief History of Tomorrow</h4>
-                        <p class="mb-0">Yuval Noah Harari</p>
-                    </div>
-                </div>
-            </th>
-        </div>
-        <div class="my-auto col-7">
-            <div class="row text-right">
-                <div class="col-4">
-                    <p class="mob-text">Paperback</p>
-                </div>
-                <div class="col-4">
-                    <div class="row d-flex justify-content-end px-3">
-
-                        <div class="d-flex flex-row">
-                            <button class="btn btn-link px-2"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                <i class="fas fa-minus"></i>
-                            </button>
-
-                            <input id="form2" min="0" name="quantity" value="1" type="number"
-                                   class="form-control form-control-sm" style="width: 50px;" />
-
-                            <button class="btn btn-link px-2"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <h6 class="mob-text">$13.50</h6>
-                </div>
-            </div>
-        </div>
-    </div>
+    <%}}else {
+    }
+    %>
 
     <div class="row justify-content-center">
         <div class="col-lg-12">
@@ -141,7 +115,7 @@
                     <div class="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
                         <form>
                             <div class="d-flex flex-row pb-3">
-                                <div class="d-flex align-items-center pe-2">
+                                <div class="d-flex align-items-center pe-2 ">
                                     <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1v"
                                            value="" aria-label="..." checked />
                                 </div>
@@ -201,20 +175,21 @@
                     <div class="col-lg-4 mt-2">
                         <div class="row d-flex justify-content-between px-4">
                             <p class="mb-1 text-left">Subtotal</p>
-                            <h6 class="mb-1 text-right">$23.49</h6>
+                            <h6 class="mb-1 text-right"><%=total%></h6>
+
                         </div>
                         <div class="row d-flex justify-content-between px-4">
                             <p class="mb-1 text-left">Shipping</p>
-                            <h6 class="mb-1 text-right">$2.99</h6>
+                            <h6 class="mb-1 text-right">$<%=ship.Shippingfee("plan",5)%></h6>
                         </div>
                         <div class="row d-flex justify-content-between px-4" id="tax">
                             <p class="mb-1 text-left">Total (tax included)</p>
-                            <h6 class="mb-1 text-right">$26.48</h6>
+                            <h6 class="mb-1 text-right">$<%=total+ship.Shippingfee("plan",5)%></h6>
                         </div>
-                        <button class="btn-block btn-blue">
+                        <button  class="btn-block btn-blue">
                             <span>
-                                <span id="checkout">Checkout</span>
-                                <span id="check-amt">$26.48</span>
+                                <span id="checkout"><a href="Order/inCheck">Checkout</a></span>
+                                <span id="check-amt">$<%=total+ship.Shippingfee("plan",5)%></span>
                             </span>
                         </button>
                     </div>

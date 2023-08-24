@@ -2,17 +2,34 @@ package com.example.demo3.business;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-@Table(name = "shipping_info")
-public class ShippingInfo {
+@Table(name = "shipping_infos")
+public class ShippingInfo implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ShippingInfo_SEQ")
-    @SequenceGenerator(name = "ShippingInfo_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
     private String shippingType;
+    private Double shippingCost;
+    private String Address;
 
+    public ShippingInfo(Integer id, String shippingType, Double shippingCost, String address, Integer shippingRegionId) {
+        this.id = id;
+        this.shippingType = shippingType;
+        this.shippingCost = shippingCost;
+        this.Address = address;
+        this.shippingRegionId = shippingRegionId;
+    }
+    public ShippingInfo(String shippingType, Double shippingCost, String address, Integer shippingRegionId) {
+        this.shippingType = shippingType;
+        this.shippingCost = shippingCost;
+        this.Address = address;
+        this.shippingRegionId = shippingRegionId;
+    }
+
+    private Integer shippingRegionId;
     public ShippingInfo() {
     }
 
@@ -47,8 +64,33 @@ public class ShippingInfo {
         this.shippingRegionId = shippingRegionId;
     }
 
-    private Double shippingCost;
-    private Integer shippingRegionId;
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+    @Override
+    public String toString() {
+        return "ShippingInfo{" +
+                "id=" + id +
+                ", shippingType='" + shippingType + '\'' +
+                ", shippingCost=" + shippingCost +
+                ", shippingRegionId=" + shippingRegionId +
+                '}';
+    }
+
+    public double Shippingfee(String shippingType, Integer shippingRegionId) {
+        if(shippingRegionId > 3 && shippingType!=null)
+        {
+            double ship = shippingRegionId*30;
+            this.shippingCost= ship;
+        }
+        return this.shippingCost;
+    }
+
+
 
     public Integer getId() {
         return id;

@@ -4,5 +4,11 @@
     <mapping uuid="0f81bd51-9765-4844-9815-6bb11cbe439f" name="DatabaseConnector Mapping">
       <data-sources db="707747db-13f2-419d-b0ce-97426046050c" />
     </mapping>
+    <mapping uuid="41ef63aa-06a7-4606-bd2d-91cadfc11081" name="DBCon Mapping">
+      <data-sources db="34ae571e-a8a3-4cec-a2c2-f5c0e084c91b" ddl="ef4468af-4cd4-4002-9dfb-0ee06e13ac55" />
+      <scope>
+        <node kind="schema" qname="demo3" />
+      </scope>
+    </mapping>
   </component>
 </project>

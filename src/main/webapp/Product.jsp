@@ -3,6 +3,8 @@
 <%@ page import="com.example.demo3.business.Product" %>
 <%@ page import="com.example.demo3.data.ProductDAO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.demo3.business.Cart" %>
+<%@ page import="com.example.demo3.business.ShippingInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -22,7 +24,14 @@
     ProductDAO pd = new ProductDAO();
     Product product = pd.selectProduct(id);
 
-    List<Product> lproducts = pd.selectProductsindex(4); // Load product from database into this list product
+    List<Product> lproducts = pd.selectProductsindex(8); // Load product from database into this list product
+    Cart cart_list = (Cart) session.getAttribute("cart-list");
+    ShippingInfo ship = new ShippingInfo();
+    int index = 0;
+    if (cart_list != null) {
+        index =CartDAO.getCount(cart_list.getListCart());
+    }
+
 %>
 <html>
 <head>
@@ -32,7 +41,6 @@
 </head>
 <body>
 <%@ include file="include/navbar.jsp" %>
-
 <section id="prodetails" class="section-p1">
     <div class="single-pro-image">
         <img src="image/img/products/<%=product.getProImage()%>" width="100%" id="MainImg" style="margin-bottom: 10px;">
@@ -56,15 +64,20 @@
             <h6>Home / <%=product.getProCategory()%></h6>
             <h4><%=product.getProName()%></h4>
             <h2>$<%=product.getProPrice()%></h2>
-            <select>
-                <option>Select Size</option>
-                <option>XL</option>
-                <option>XXL</option>
-                <option>Small</option>
-                <option>Large</option>
-            </select>
-            <input type="number" value="1">
-            <button class="normal">Add To Cart</button>
+
+            <form method="POST" action="/Cart/addItem">
+                <select name="size">
+                    <option>Select Size</option>
+                    <option>XL</option>
+                    <option>XXL</option>
+                    <option>Small</option>
+                    <option>Large</option>
+                </select>
+                <input name="quantity" type="number" value="1">
+                <input type="hidden" name="productCode" value="<%=product.getId()%>">
+                <button type="submit" class="normal" >Add to Cart</button>
+            </form>
+
             <h4>Product Details</h4>
             <span><%=product.getProDes()%></span>
         </div>
@@ -88,9 +101,12 @@
                         <i class="fas fa-star"></i>
                         <%}%>
                     </div>
-                    <h4><%=item.getProPrice()%></h4>
+                    <h4>$<%=item.getProPrice()%></h4>
                 </div>
-                <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                <form method="post" action="Cart/addItem">
+                    <input type="hidden" name="productCode" value="<%=item.getId()%>">
+                    <button type="submit"> <i class="fal fa-shopping-cart cart"></i></button>
+                </form>
             </div>
             <%}} else {
             }

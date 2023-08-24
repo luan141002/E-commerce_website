@@ -1,15 +1,16 @@
 
 
-
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <%@ page import="com.example.demo3.business.*" %>
 <%@ page import="com.example.demo3.data.*" %>
-
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="static com.sun.activation.registries.LogSupport.log" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
     //Authentication access - session
-   Account auth = (Account) request.getSession().getAttribute("auth");
+   Account auth = (Account)request.getSession().getAttribute("auth");
     if (auth != null) {
         request.setAttribute("auth", auth);// set for using in each page for navbar check and showing button
     }
@@ -17,6 +18,14 @@
     ProductDAO pd = new ProductDAO();
     List<Product> lproducts = pd.selectProductsindex(8); // Load product from database into this list product
 
+    Cart cart_list = (Cart) session.getAttribute("cart-list");
+    int index = 0;
+    if (cart_list != null) {
+        index =CartDAO.getCount(cart_list.getListCart());
+    }
+    else{
+        log("đưuọc r hihi");
+    }
 
 %>
 <!DOCTYPE html>
@@ -24,6 +33,7 @@
 <head>
     <title>Home Page</title>
     <%@ include file="include/head.jsp" %>
+    <link rel="stylesheet" href="/style/main.css">
 </head>
 <body>
 <%@ include file="include/navbar.jsp" %>
@@ -33,7 +43,10 @@
     <h2>Super value deals</h2>
     <h1>On all products</h1>
     <p>Save more with coupons & up to 1% off !</p>
-    <button action="Login1.jsp"> Shop Now</button>
+    <form method="GET" action="Shopping.jsp">
+        <button> Shop Now</button>
+    </form>
+
 
 </section>
 
@@ -69,7 +82,7 @@
     <p>Summer Collection New Modern Design</p>
 
 
-    <div class="pro-container">
+    <div class="pro-container" id="pro">
         <%
             if (!lproducts.isEmpty()) {
                 for (Product item : lproducts) {
@@ -84,9 +97,12 @@
                     <i class="fas fa-star"></i>
                     <%}%>
                 </div>
-                <h4><%=item.getProPrice()%></h4>
+                <h4>$<%=item.getProPrice()%></h4>
             </div>
-            <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+            <form method="POST" action="/Cart/addItem">
+                <input type="hidden" name="productCode" value="<%=item.getId()%>">
+                <button type="submit"> <i class="fal fa-shopping-cart cart"></i></button>
+            </form>
         </div>
         <%}} else {
             }
